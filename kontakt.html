@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betrieb Kreativ | Kontakt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="Betrieb Kreativ Startseite">
+        <img src="assets/img/logo.jpg" alt="Betrieb Kreativ Logo">
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="sr-only">Menü öffnen</span>
+      </button>
+      <nav id="primary-navigation" class="site-nav" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#anfrage" data-open-request>Anfrage senden</a></li>
+          <li><button class="nav-link" type="button" data-toggle-catalog>Produkte</button></li>
+          <li><a href="inspiration.html">Inspiration</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li class="request-icon">
+            <button class="request-toggle" type="button" data-open-request>
+              <span class="badge" data-request-count>0</span>
+              <span>Anfrage</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="catalog-overlay" data-catalog-overlay hidden>
+    <div class="catalog-panel">
+      <div class="catalog-panel-header">
+        <h2>Produkte</h2>
+        <div class="catalog-panel-actions">
+          <a class="catalog-see-all" href="produkte.html">Alle Produkte ansehen</a>
+          <button type="button" class="catalog-close" data-close-catalog aria-label="Menü schließen">&times;</button>
+        </div>
+      </div>
+      <div class="catalog-panel-body" data-catalog-panel></div>
+    </div>
+  </div>
+
+
+  <main>
+    <section class="page-hero contact-hero">
+      <div class="container">
+        <h1>Kontakt</h1>
+        <p>Wir arbeiten in Düsseldorf – komplett digital und flexibel. Melden Sie sich für Projekte, Kooperationen oder Fragen jederzeit bei uns.</p>
+        <div class="contact-actions">
+          <a class="primary-button" href="tel:+4917663770212">+49&nbsp;176&nbsp;63770212</a>
+          <a class="primary-button ghost" href="mailto:vertrieb@betriebkreativ.de">vertrieb@betriebkreativ.de</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-details" aria-labelledby="details-heading">
+      <div class="container">
+        <div class="contact-grid">
+          <div>
+            <h2 id="details-heading">So erreichen Sie uns</h2>
+            <dl class="contact-list">
+              <dt>Adresse</dt>
+              <dd>Betrieb Kreativ<br>Düsseldorf</dd>
+              <dt>Telefon</dt>
+              <dd><a href="tel:+4917663770212">+49&nbsp;176&nbsp;63770212</a></dd>
+              <dt>E-Mail</dt>
+              <dd><a href="mailto:vertrieb@betriebkreativ.de">vertrieb@betriebkreativ.de</a></dd>
+              <dt>Arbeitsweise</dt>
+              <dd>100&nbsp;% online – wir reagieren schnell per Mail, Telefon oder Video-Call.</dd>
+            </dl>
+            <p class="contact-hint">Für Angebotsanfragen nutzen Sie bitte unseren Anfragekorb – so erhalten Sie innerhalb von zwei Stunden ein individuelles Angebot.</p>
+          </div>
+          <div class="online-note">
+            <h2>Reines Online-Geschäft</h2>
+            <p>Wir konzentrieren uns auf digitale Beratung, Gestaltung und Produktionssteuerung. Vor-Ort-Termine oder spontane Besuche sind daher nicht möglich.</p>
+            <ul>
+              <li>Kick-off per Video-Call oder Telefon</li>
+              <li>Design-Feedback via kollaborativen Tools</li>
+              <li>Freigaben und Lieferung vollständig remote</li>
+            </ul>
+            <p class="map-note">Sie haben konkrete Druckdaten oder Ideen? Teilen Sie sie direkt in der Anfrage oder per E-Mail – wir kümmern uns um den Rest.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="contact-form-section" aria-labelledby="contact-form-heading">
+      <div class="container">
+        <h2 id="contact-form-heading">Kurze Nachricht senden</h2>
+        <p>Sie haben eine allgemeine Frage, möchten Feedback geben oder benötigen Unterstützung bei bestehenden Projekten? Schreiben Sie uns – wir melden uns binnen eines Werktags.</p>
+        <form class="contact-form" id="general-contact-form" novalidate>
+          <div class="form-grid">
+            <label>
+              <span>Name *</span>
+              <input type="text" name="name" required>
+            </label>
+            <label>
+              <span>E-Mail *</span>
+              <input type="email" name="email" required>
+            </label>
+            <label>
+              <span>Telefon</span>
+              <input type="tel" name="phone">
+            </label>
+            <label>
+              <span>Betreff *</span>
+              <input type="text" name="subject" required>
+            </label>
+            <label class="full-width">
+              <span>Nachricht *</span>
+              <textarea name="message" rows="5" required></textarea>
+            </label>
+          </div>
+          <div class="form-actions">
+            <button class="primary-button" type="submit">Nachricht senden</button>
+            <p class="form-note">* Pflichtfelder</p>
+          </div>
+          <p class="form-feedback" role="status" aria-live="polite" hidden></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span data-current-year></span> Betrieb Kreativ. Alle Rechte vorbehalten.</p>
+      <div class="footer-links">
+        <a href="kontakt.html" aria-current="page">Kontakt</a>
+        <a href="mailto:vertrieb@betriebkreativ.de">vertrieb@betriebkreativ.de</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="agb.html">AGB</a>
+        <a href="#anfrage" data-open-request>Anfrage senden</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="request-modal" role="dialog" aria-modal="true" aria-labelledby="request-title" hidden>
+    <div class="request-dialog">
+      <button class="request-close" type="button" aria-label="Anfrage schließen" data-close-request>&times;</button>
+      <div class="request-layout">
+        <section class="request-summary">
+          <h2 id="request-title">Ihre Anfrage</h2>
+          <p class="request-empty" data-request-empty>Sie haben noch keine Produkte ausgewählt.</p>
+          <ul class="request-items" data-request-items aria-live="polite"></ul>
+        </section>
+        <section class="request-form">
+          <h3>Kontakt &amp; Projekt</h3>
+          <form id="request-form" novalidate>
+            <div class="form-grid">
+              <label>
+                <span>Name *</span>
+                <input type="text" name="name" required>
+              </label>
+              <label>
+                <span>Unternehmen</span>
+                <input type="text" name="company">
+              </label>
+              <label>
+                <span>E-Mail *</span>
+                <input type="email" name="email" required>
+              </label>
+              <label>
+                <span>Telefon *</span>
+                <input type="tel" name="phone" required>
+              </label>
+              <label class="full-width">
+                <span>Beschreiben Sie Ihr Projekt *</span>
+                <textarea name="message" rows="4" required placeholder="Auflage, Format, Besonderheiten, Designwünsche..."></textarea>
+              </label>
+              <label class="full-width">
+                <span>Datei anhängen (optional)</span>
+                <input type="file" name="attachment" accept=".pdf,.jpg,.png,.zip">
+              </label>
+            </div>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Anfrage absenden</button>
+              <p class="form-note">* Pflichtfelder</p>
+            </div>
+            <p class="form-feedback" role="status" aria-live="polite" hidden></p>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/products-data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>
+

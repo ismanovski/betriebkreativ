@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Betrieb Kreativ | Produktsortiment</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body class="with-subnav">
+    <header class="site-header">
+    <div class="container">
+      <a class="brand" href="index.html" aria-label="Betrieb Kreativ Startseite">
+        <img src="assets/img/logo.jpg" alt="Betrieb Kreativ Logo">
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="menu-icon" aria-hidden="true"></span>
+        <span class="sr-only">Menü öffnen</span>
+      </button>
+      <nav id="primary-navigation" class="site-nav" aria-label="Hauptnavigation">
+        <ul>
+          <li><a href="#anfrage" data-open-request>Anfrage senden</a></li>
+          <li><button class="nav-link" type="button" data-toggle-catalog>Produkte</button></li>
+          <li><a href="inspiration.html">Inspiration</a></li>
+          <li><a href="kontakt.html">Kontakt</a></li>
+          <li class="request-icon">
+            <button class="request-toggle" type="button" data-open-request>
+              <span class="badge" data-request-count>0</span>
+              <span>Anfrage</span>
+            </button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="catalog-overlay" data-catalog-overlay hidden>
+    <div class="catalog-panel">
+      <div class="catalog-panel-header">
+        <h2>Produkte</h2>
+        <div class="catalog-panel-actions">
+          <a class="catalog-see-all" href="produkte.html">Alle Produkte ansehen</a>
+          <button type="button" class="catalog-close" data-close-catalog aria-label="Menü schließen">&times;</button>
+        </div>
+      </div>
+      <div class="catalog-panel-body" data-catalog-panel></div>
+    </div>
+  </div>
+
+
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <h1>Alle Produkte</h1>
+        <p>Hier finden Sie das komplette Sortiment – angeordnet wie bei WIRmachenDRUCK. Fügen Sie Produkte Ihrer Anfrage hinzu und beschreiben Sie anschließend Ihre Wünsche.</p>
+        <form class="product-search" role="search" aria-label="Produktsuche">
+          <label>
+            <span class="sr-only">Produkte durchsuchen</span>
+            <input type="search" name="q" placeholder="Suche nach Produkt, Kategorie oder Stichwort" autofocus data-product-search>
+          </label>
+          <button class="primary-button" type="submit">Suchen</button>
+          <div class="search-suggestions" data-search-suggestions hidden></div>
+        </form>
+        <div class="search-meta" data-search-meta role="status" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="product-specials" aria-labelledby="specials-heading" data-specials-section>
+      <div class="container">
+        <h2 id="specials-heading">Schnelleinstieg</h2>
+        <p>Diese Themenwelten und Aktionen stehen bei vielen Kundinnen und Kunden hoch im Kurs.</p>
+        <div class="specials-grid" data-specials-grid>
+          <!-- gefüllt via JavaScript -->
+        </div>
+      </div>
+    </section>
+
+    <section class="product-index" aria-labelledby="catalog-heading">
+      <div class="container">
+        <div class="category-nav" role="navigation" aria-label="Produktkategorien" data-category-nav>
+          <!-- gefüllt via JavaScript -->
+        </div>
+
+        <h2 id="catalog-heading">Produktkategorien</h2>
+        <div class="product-groups" data-category-groups>
+          <!-- gefüllt via JavaScript -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p>&copy; <span data-current-year></span> Betrieb Kreativ. Alle Rechte vorbehalten.</p>
+      <div class="footer-links">
+        <a href="kontakt.html">Kontakt</a>
+        <a href="mailto:vertrieb@betriebkreativ.de">vertrieb@betriebkreativ.de</a>
+        <a href="impressum.html">Impressum</a>
+        <a href="agb.html">AGB</a>
+        <a href="#anfrage" data-open-request>Anfrage senden</a>
+      </div>
+    </div>
+  </footer>
+
+  <div class="request-modal" role="dialog" aria-modal="true" aria-labelledby="request-title" hidden>
+    <div class="request-dialog">
+      <button class="request-close" type="button" aria-label="Anfrage schließen" data-close-request>&times;</button>
+      <div class="request-layout">
+        <section class="request-summary">
+          <h2 id="request-title">Ihre Anfrage</h2>
+          <p class="request-empty" data-request-empty>Sie haben noch keine Produkte ausgewählt.</p>
+          <ul class="request-items" data-request-items aria-live="polite"></ul>
+        </section>
+        <section class="request-form">
+          <h3>Kontakt &amp; Projekt</h3>
+          <form id="request-form" novalidate>
+            <div class="form-grid">
+              <label>
+                <span>Name *</span>
+                <input type="text" name="name" required>
+              </label>
+              <label>
+                <span>Unternehmen</span>
+                <input type="text" name="company">
+              </label>
+              <label>
+                <span>E-Mail *</span>
+                <input type="email" name="email" required>
+              </label>
+              <label>
+                <span>Telefon *</span>
+                <input type="tel" name="phone" required>
+              </label>
+              <label class="full-width">
+                <span>Beschreiben Sie Ihr Projekt *</span>
+                <textarea name="message" rows="4" required placeholder="Auflage, Format, Besonderheiten, Designwünsche..."></textarea>
+              </label>
+              <label class="full-width">
+                <span>Datei anhängen (optional)</span>
+                <input type="file" name="attachment" accept=".pdf,.jpg,.png,.zip">
+              </label>
+            </div>
+            <div class="form-actions">
+              <button class="primary-button" type="submit">Anfrage absenden</button>
+              <p class="form-note">* Pflichtfelder</p>
+            </div>
+            <p class="form-feedback" role="status" aria-live="polite" hidden></p>
+          </form>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/js/products-data.js" defer></script>
+  <script src="assets/js/site.js" defer></script>
+</body>
+</html>
