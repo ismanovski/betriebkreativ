@@ -22,7 +22,16 @@
       <nav id="primary-navigation" class="site-nav" aria-label="Hauptnavigation">
         <ul>
           <li><a href="#anfrage" data-open-request>Anfrage senden</a></li>
-          <li><button class="nav-link" type="button" data-toggle-catalog>Produkte</button></li>
+          <li class="nav-products">
+            <button class="nav-link" type="button" aria-expanded="false" aria-controls="product-menu" data-product-menu-toggle>Produkte</button>
+            <div class="product-dropdown" id="product-menu" data-product-dropdown hidden>
+              <div class="product-dropdown-body">
+                <p class="product-dropdown-label">Top-Kategorien</p>
+                <div class="product-dropdown-grid" data-product-shortlist></div>
+                <button class="product-dropdown-more" type="button" data-product-dropdown-more data-toggle-catalog>Noch mehr Produkte</button>
+              </div>
+            </div>
+          </li>
           <li><a href="inspiration.html">Inspiration</a></li>
           <li><a href="kontakt.html">Kontakt</a></li>
           <li class="request-icon">

@@ -2,6 +2,7 @@
   const REQUEST_KEY = "bk-request-items";
   const BASE_CATALOG_URL = "https://www.wir-machen-druck.de";
   const CATALOG_FALLBACK_URL = "assets/data/catalog.json";
+  const PRODUCT_SHORTLIST_LIMIT = 18;
   const inlineCatalog = Array.isArray(window.__BK_CATALOG__)
     ? window.__BK_CATALOG__
     : [];
@@ -23,7 +24,12 @@
     catalogOverlay: document.querySelector("[data-catalog-overlay]"),
     catalogPanel: document.querySelector("[data-catalog-panel]"),
     contactForm: document.getElementById("general-contact-form"),
+    productDropdown: document.querySelector("[data-product-dropdown]"),
+    productShortlist: document.querySelector("[data-product-shortlist]"),
+    productMenuToggle: document.querySelector("[data-product-menu-toggle]"),
+    productDropdownMore: document.querySelector("[data-product-dropdown-more]"),
     heroLines: document.querySelector("[data-hero-lines]"),
+    heroArt: document.querySelector("[data-hero-art]"),
   };
 
   const state = {
@@ -34,6 +40,8 @@
     cards: [],
     suggestionItems: [],
   };
+
+  let isProductMenuOpen = false;
 
   /* -------------------- Helpers -------------------- */
   function loadRequestItems() {
@@ -350,6 +358,44 @@
     });
   }
 
+  function renderProductShortlist() {
+    if (!dom.productShortlist) return;
+    dom.productShortlist.innerHTML = "";
+
+    if (!state.catalog.length) {
+      const placeholder = document.createElement("p");
+      placeholder.className = "product-dropdown-empty";
+      placeholder.textContent = "Produkte werden geladen ...";
+      dom.productShortlist.append(placeholder);
+      updateProductDropdownMeta(0);
+      return;
+    }
+
+    const shortlist = state.catalog.slice(0, PRODUCT_SHORTLIST_LIMIT);
+    const fragment = document.createDocumentFragment();
+
+    shortlist.forEach((category) => {
+      const shortcut = document.createElement("a");
+      shortcut.href = `produkte.html#category-${category.id}`;
+      shortcut.className = "product-shortcut";
+      shortcut.textContent = category.name;
+      shortcut.addEventListener("click", () => closeProductDropdown());
+      fragment.append(shortcut);
+    });
+
+    dom.productShortlist.append(fragment);
+    updateProductDropdownMeta(shortlist.length);
+  }
+
+  function updateProductDropdownMeta(visibleCount) {
+    if (!dom.productDropdownMore) return;
+    const remaining = Math.max(state.catalog.length - visibleCount, 0);
+    dom.productDropdownMore.textContent =
+      remaining > 0
+        ? `Noch mehr Produkte (${remaining}+)`
+        : "Alle Produkte";
+  }
+
   function collectSuggestionItems() {
     const suggestions = [];
     state.catalog.forEach((category) => {
@@ -625,6 +671,7 @@ if (!grid.children.length) {
     renderHighlights();
     renderCategories();
     renderCatalogOverlay();
+    renderProductShortlist();
     collectSuggestionItems();
     applySearchFilter();
     if (dom.searchInput && dom.searchInput.value) {
@@ -654,6 +701,62 @@ if (!grid.children.length) {
     }
   }
 
+  function setProductDropdownState(isOpen) {
+    if (!dom.productDropdown || !dom.productMenuToggle) return;
+    isProductMenuOpen = isOpen;
+    dom.productDropdown.hidden = !isOpen;
+    dom.productMenuToggle.setAttribute("aria-expanded", String(isOpen));
+    dom.productMenuToggle.classList.toggle("is-active", isOpen);
+  }
+
+  function toggleProductDropdown(force) {
+    const nextState = typeof force === "boolean" ? force : !isProductMenuOpen;
+    setProductDropdownState(nextState);
+  }
+
+  function closeProductDropdown() {
+    setProductDropdownState(false);
+  }
+
+  function bindProductDropdown() {
+    if (!dom.productMenuToggle || !dom.productDropdown) return;
+
+    dom.productMenuToggle.addEventListener("click", () => {
+      toggleProductDropdown();
+    });
+
+    document.addEventListener("click", (event) => {
+      if (
+        !isProductMenuOpen ||
+        !dom.productDropdown ||
+        !dom.productMenuToggle
+      ) {
+        return;
+      }
+
+      if (
+        dom.productDropdown.contains(event.target) ||
+        dom.productMenuToggle.contains(event.target)
+      ) {
+        return;
+      }
+
+      closeProductDropdown();
+    });
+
+    window.addEventListener("resize", () => {
+      if (isProductMenuOpen) {
+        closeProductDropdown();
+      }
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && isProductMenuOpen) {
+        closeProductDropdown();
+      }
+    });
+  }
+
   /* -------------------- Event bindings -------------------- */
   function bindNavigation() {
     const toggle = document.querySelector(".menu-toggle");
@@ -663,6 +766,7 @@ if (!grid.children.length) {
       const expanded = toggle.getAttribute("aria-expanded") === "true";
       toggle.setAttribute("aria-expanded", String(!expanded));
       nav.classList.toggle("open", !expanded);
+      closeProductDropdown();
     });
   }
 
@@ -671,6 +775,7 @@ if (!grid.children.length) {
     const toggles = document.querySelectorAll("[data-toggle-catalog]");
     toggles.forEach((toggle) => {
       toggle.addEventListener("click", () => {
+        closeProductDropdown();
         openCatalogOverlay();
         const nav = document.getElementById("primary-navigation");
         if (nav) {
@@ -818,9 +923,32 @@ if (!grid.children.length) {
           dom.heroLines.classList.toggle("is-active", entry.isIntersecting);
         });
       },
-      { threshold: 0.45 }
+      { threshold: 0.2, rootMargin: "-10% 0px -45% 0px" }
     );
     observer.observe(dom.heroLines);
+  }
+
+  function bindHeroArt() {
+    if (!dom.heroArt) return;
+
+    const startLaugh = () => dom.heroArt.classList.add("is-laughing");
+    const stopLaugh = () => dom.heroArt.classList.remove("is-laughing");
+
+    dom.heroArt.addEventListener("pointerenter", (event) => {
+      if (event.pointerType === "mouse") {
+        startLaugh();
+      }
+    });
+
+    dom.heroArt.addEventListener("pointerleave", (event) => {
+      if (event.pointerType === "mouse") {
+        stopLaugh();
+      }
+    });
+
+    dom.heroArt.addEventListener("pointerdown", startLaugh);
+    dom.heroArt.addEventListener("pointerup", stopLaugh);
+    dom.heroArt.addEventListener("pointercancel", stopLaugh);
   }
 
   function bindRequestForm() {
@@ -906,8 +1034,10 @@ if (!grid.children.length) {
     updateCurrentYear();
     renderRequestItems();
     updateRequestBadges();
+    renderProductShortlist();
 
     bindNavigation();
+    bindProductDropdown();
     bindCatalogOverlay();
     bindModalControls();
     bindRequestList();
@@ -916,6 +1046,7 @@ if (!grid.children.length) {
     bindRequestForm();
     bindContactForm();
     bindHeroLines();
+    bindHeroArt();
 
     ensureCatalog();
   }
